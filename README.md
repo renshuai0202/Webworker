@@ -11,9 +11,12 @@
 
 02-主线程API
   const webWork = new Work('xxx');
-  webWork.postMessage = function
-  webWork.onmessage = function
-  webWork.onerror = function
+  方法：
+    webWork.terminate()立刻停止worker，无论worker行为是否完成
+  事件：
+    webWork.postMessage = function
+    webWork.onmessage = function
+    webWork.onerror = function
 
 03-worker线程API
   属性：
@@ -25,6 +28,7 @@
       被引入的脚本，只需要定义函数即可，不用导出关键字
       倒入脚本后，属性或方法，自动挂载到全局作用域中
     postMessage()
+    close()清除任务队列中的事件，关闭此作用域
   事件：
     onmessage = function
     onmemessageerror = function
