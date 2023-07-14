@@ -14,3 +14,17 @@
   webWork.postMessage = function
   webWork.onmessage = function
   webWork.onerror = function
+
+03-worker线程API
+  属性：
+    self是对当前作用域的引用，类似于主线程环境下的window
+    name是worker的名字，创建实例化时在options设置的
+  方法：
+    importScripts
+      importScripts(url?, url, ...);
+      被引入的脚本，只需要定义函数即可，不用导出关键字
+      倒入脚本后，属性或方法，自动挂载到全局作用域中
+    postMessage()
+  事件：
+    onmessage = function
+    onmemessageerror = function
