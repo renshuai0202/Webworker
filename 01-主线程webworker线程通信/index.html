@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="sendMessage()">发送消息</button>
+
+  <script id="webworker" type="app/webworker">
+    self.onmessage = function (e) {
+      console.log('收到主线程的信息是', e.data);
+      if (e.data.type === '天气') {
+        self.postMessage("今天天气很好");
+      }
+    }
+  </script>
+
+  <script>
+    const blob = new Blob([document.getElementById("webworker").textContent]);
+    const url = window.URL.createObjectURL(blob);
+
+    const webWorker = new Worker('./webWork.js');
+
+    function sendMessage() {
+      console.log("123", webWorker);
+      webWorker.postMessage({
+        type: "天气"
+      });
+      console.log("456");
+    }
+
+    webWorker.onmessage = function (e) {
+      console.log('收到webWorker消息', e.data);
+    }
+  </script>
+</body>
+
+</html>
